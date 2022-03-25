@@ -15,10 +15,10 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     }
 })
 
-sequelize.authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-    .then(() => sequelize.sync({ force: true }))
-    .catch((error) => console.error('Unable to connect to the database:', error))
+// sequelize.authenticate()
+//     .then(() => console.log('Connection has been established successfully.'))
+//     .then(() => sequelize.sync({ force: true }))
+//     .catch((error) => console.error('Unable to connect to the database:', error))
 
 // sequelize.sync({ force: true })
 //     .then(() => console.log('Models synced'))
