@@ -1,43 +1,42 @@
 const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../config/connection')
 
-class User extends Model { }
+class Post extends Model { }
 
-User.init(
+Post.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        username: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        email: {
+        post_url: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isEmail: true
+                isUrl: true
             }
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [4]
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'user', // look for user table named 'user'
+                key: 'id'
             }
         }
     },
     {
         sequelize,
-        timestamps: false, // disables automatic creation of 'created_at' and 'updated_at' fields
         freezeTableName: true,
         underscored: true,
-        modelName: 'user'
+        modelName: 'post'
     }
 )
 
-// User.sync({ force: true })
+// Post.sync({ force: true })
 
-module.exports = User
+module.exports = Post
