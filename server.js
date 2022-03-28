@@ -1,19 +1,17 @@
-const express = require('express')
-const sequelize = require('./config/connection')
-const routes = require('./routes')
+const express = require('express');
+const routes = require('./routes');
+const sequelize = require('./config/connection');
 
-const app = express()
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use('/', routes)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 5001
+// turn on routes
+app.use(routes);
 
-// force: true will drop the tables and re-create
-sequelize.sync({ force: false })
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`App started on ${PORT}`)
-        })
-    })
+// turn on connection to db and server
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
+});
